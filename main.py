@@ -33,6 +33,7 @@ class MyServer(BaseHTTPRequestHandler):
         print(_board.to_string())
         print("{}:{}-->{}:{}".format(ai_move.xfrom,ai_move.yfrom,ai_move.xto,ai_move.yto))
         san = move2Algebraic(ai_move, fen)
+        san = flipTable(san)
         print(san)
 
 
@@ -42,6 +43,14 @@ class MyServer(BaseHTTPRequestHandler):
 
 
 
+def flipTable(san):
+    result = ""
+    for s in san:
+        if s.isnumeric():
+            result += str(9-int(s))
+        else:
+            result += s
+    return result
 
 def getSquare(x, y):
     return x + 8 * y
