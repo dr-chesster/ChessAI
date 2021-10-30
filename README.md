@@ -15,7 +15,7 @@ Download the repository and install the numpy dependency:
 ```
 git clone https://github.com/dr-chesster/ChessAI
 cd ChessAI
-pip install requirements.txt
+pip install -r requirements.txt
 
 ```
 
