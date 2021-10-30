@@ -20,6 +20,62 @@ class Board:
                     chesspieces[x][y] = piece.clone()
         return cls(chesspieces, chessboard.white_king_moved, chessboard.black_king_moved)
 
+
+    def loadFenString(self, fen):
+        fen = fen.split(" ")[0]
+        lines = fen.split("/")
+        for y in range(Board.HEIGHT):
+            line = lines[y]
+            position = 0
+
+            for l in line:
+                if l.isnumeric():
+                    position+=int(l)
+                else:
+                    piece = l
+                    if (piece == "p"):
+                        self.chesspieces[position][y] = pieces.Pawn(position, y, pieces.Piece.BLACK)
+                        position += 1
+                    elif (piece == "P"):
+                        self.chesspieces[position][y] = pieces.Pawn(position, y, pieces.Piece.WHITE)
+                        position += 1
+                    elif (piece == "r"):
+                        self.chesspieces[position][y] = pieces.Rook(position, y, pieces.Piece.BLACK)
+                        position += 1
+                    elif (piece == "R"):
+                        self.chesspieces[position][y] = pieces.Rook(position, y, pieces.Piece.WHITE)
+                        position += 1
+                    elif (piece == "n"):
+                        self.chesspieces[position][y] = pieces.Knight(position, y, pieces.Piece.BLACK)
+                        position += 1
+                    elif (piece == "N"):
+                        self.chesspieces[position][y] = pieces.Knight(position, y, pieces.Piece.WHITE)
+                        position += 1
+                    elif (piece == "b"):
+                        self.chesspieces[position][y] = pieces.Bishop(position, y, pieces.Piece.BLACK)
+                        position += 1
+                    elif (piece == "B"):
+                        self.chesspieces[position][y] = pieces.Bishop(position, y, pieces.Piece.WHITE)
+                        position += 1
+                    elif (piece == "q"):
+                        self.chesspieces[position][y] = pieces.Queen(position, y, pieces.Piece.BLACK)
+                        position += 1
+                    elif (piece == "Q"):
+                        self.chesspieces[position][y] = pieces.Queen(position, y, pieces.Piece.WHITE)
+                        position += 1
+                    elif (piece == "k"):
+                        self.chesspieces[position][y] = pieces.King(position, y, pieces.Piece.BLACK)
+                        position += 1
+                    elif (piece == "K"):
+                        self.chesspieces[position][y] = pieces.King(position, y, pieces.Piece.WHITE)
+                        position += 1
+
+       
+    @classmethod
+    def empty(cls):
+        chess_pieces = [[0 for x in range(Board.WIDTH)] for y in range(Board.HEIGHT)]
+        return cls(chess_pieces, False, False)
+
     @classmethod
     def new(cls):
         chess_pieces = [[0 for x in range(Board.WIDTH)] for y in range(Board.HEIGHT)]

@@ -1,21 +1,26 @@
 # Chess AI
-Basic Chess AI written in Python 3. 
+HTTP POST Endpoint that response the ChessAI-s move to a given table.
+
 
 Uses the Alpha-Beta algorithm to search for the best move. 
 
 <img src="./preview.png" width="200" alt="Python Chess AI Program">
 
+## Example Usage
+
+<img src="./PostMan.png" width="200" alt="Python Chess AI Program">
+
 ## Getting started
 Download the repository and install the numpy dependency:
 ```
-git clone git@github.com:Dirk94/ChessAI.git
+git clone https://github.com/dr-chesster/ChessAI
 cd ChessAI
-pip3 install numpy
+pip install numpy
 ```
 
-Run the program and start playing chess! ♟️
+Run the program and start sending POST Requests! ♟️
 ```
-python3 main.py
+python main.py
 ```
 
 ### Example Moves
