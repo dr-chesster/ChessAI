@@ -8,7 +8,7 @@ Uses the Alpha-Beta algorithm to search for the best move.
 
 ## Example Usage
 
-<img src="./PostMan.jpg" width="200" alt="Python Chess AI Program">
+<img src="./PostMan.jpg" width="600" alt="PostMan">
 
 ## Getting started
 Download the repository and install the numpy dependency:
