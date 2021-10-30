@@ -15,7 +15,8 @@ Download the repository and install the numpy dependency:
 ```
 git clone https://github.com/dr-chesster/ChessAI
 cd ChessAI
-pip install numpy
+pip install requirements.txt
+
 ```
 
 Run the program and start sending POST Requests! ♟️
