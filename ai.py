@@ -111,10 +111,10 @@ class AI:
     INFINITE = 10000000
 
     @staticmethod
-    def get_ai_move(chessboard, invalid_moves):
+    def get_ai_move(chessboard, invalid_moves, turn):
         best_move = 0
         best_score = AI.INFINITE
-        for move in chessboard.get_possible_moves(pieces.Piece.BLACK):
+        for move in chessboard.get_possible_moves(turn):
             if (AI.is_invalid_move(move, invalid_moves)):
                 continue
 
@@ -132,9 +132,9 @@ class AI:
 
         copy = board.Board.clone(chessboard)
         copy.perform_move(best_move)
-        if (copy.is_check(pieces.Piece.BLACK)):
+        if (copy.is_check(turn)):
             invalid_moves.append(best_move)
-            return AI.get_ai_move(chessboard, invalid_moves)
+            return AI.get_ai_move(chessboard, invalid_moves, turn)
 
         return best_move
 
