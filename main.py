@@ -12,12 +12,15 @@ class MyServer(BaseHTTPRequestHandler):
     def _set_response(self):
         self.send_response(200)
         self.send_header('Content-type', 'text/html')
+        self.send_header('Access-Control-Allow-Origin', '*')
         self.end_headers()
 
     
     def do_POST(self):
         content_length = int(self.headers['Content-Length'])
+        
         post_data = json.loads(self.rfile.read(content_length).decode('utf8').replace("'", '"'))
+
         fen = post_data['FenString']
 
         print("#"*100)
@@ -29,11 +32,13 @@ class MyServer(BaseHTTPRequestHandler):
         print(_board.to_string())
 
         ai_move = ai.AI.get_ai_move(_board, [])
+
+
         _board.perform_move(ai_move)
         print(_board.to_string())
-        print("{}:{}-->{}:{}".format(ai_move.xfrom,ai_move.yfrom,ai_move.xto,ai_move.yto))
+
+        #print("AI OUTPUT {}:{}-->{}:{}".format(ai_move.xfrom,ai_move.yfrom,ai_move.xto,ai_move.yto))
         san = move2Algebraic(ai_move, fen)
-        san = flipTable(san)
         print(san)
 
 
@@ -43,28 +48,29 @@ class MyServer(BaseHTTPRequestHandler):
 
 
 
-def flipTable(san):
-    result = ""
-    for s in san:
-        if s.isnumeric():
-            result += str(9-int(s))
-        else:
-            result += s
-    return result
-
 def getSquare(x, y):
-    return x + 8 * y
+    return ((7-y) *8) + x
 
-def move2Algebraic(ai_move, fen):
-    fen = fen.split(" ")[0]
-
-    lib_board = chess.Board()
+def move2Algebraic(ai_move, full_fen):
+    fen = full_fen.split(" ")[0]
     
+    lib_board = chess.Board()
     lib_board.set_board_fen(fen)
+    
+    turn = full_fen.split(" ")[1]
+    if turn.lower() =='b':
+        lib_board.turn = chess.BLACK
+
     #print(lib_board)
 
+  
     move = chess.Move(getSquare(ai_move.xfrom,ai_move.yfrom), getSquare(ai_move.xto,ai_move.yto))
-    return lib_board.san(move)
+    san = lib_board.san(move)
+    
+    
+    lib_board.push(move)
+    #print(lib_board)
+    return san
 
 
 if __name__ == "__main__":
